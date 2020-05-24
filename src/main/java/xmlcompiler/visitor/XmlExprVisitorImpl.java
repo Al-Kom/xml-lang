@@ -11,24 +11,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static xmlcompiler.config.Configuration.CLASSNAME;
+import static xmlcompiler.config.Configuration.PACKAGE_NAME;
+
 public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
-    private static final String COMPILED_PACKAGE_NAME = "result";
-    private String className;
     private Map<String, Type> globalVariable = new HashMap<>();
     private Map<String, Type> localVariable = new HashMap<>();
     private Map<String, Type> functionNames = new HashMap<>();
 
-    public XmlExprVisitorImpl(String fileName) {
-        String fileNameForClass = getStringWithFirstCapital(fileName);
-        this.className = replaceDot(fileNameForClass);
-    }
+    public XmlExprVisitorImpl() {}
 
     private String getStringWithFirstCapital(String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
-    }
-
-    private String replaceDot(String string) {
-        return string.replaceAll("[.]", "_");
     }
 
     private boolean isGlobal(ParserRuleContext ctx) {
@@ -121,9 +115,10 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
     // important code
     @Override
     public String visitParse(XmlExprParser.ParseContext ctx) {
-        StringBuilder buffer = new StringBuilder("// program " + className + ". Compiled at " + new Date().toString() + "\n");
-        buffer.append("package " + COMPILED_PACKAGE_NAME + ";\n");
-        buffer.append("public class ").append(className).append(" {\n");
+        StringBuilder buffer = new StringBuilder("// program " + CLASSNAME
+                + ". Compiled at " + new Date().toString() + "\n");
+        buffer.append("package " + PACKAGE_NAME + ";\n");
+        buffer.append("public class ").append(CLASSNAME).append(" {\n");
 
         // write parsed global variables
         List<XmlExprParser.CreateContext> createContextList = ctx.create();

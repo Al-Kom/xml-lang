@@ -1,44 +1,54 @@
 package xmlcompiler;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
-import xmlcompiler.generated.XmlExprBaseVisitor;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 import xmlcompiler.generated.XmlExprLexer;
 import xmlcompiler.generated.XmlExprParser;
 import xmlcompiler.generated.XmlExprVisitor;
 import xmlcompiler.visitor.XmlExprVisitorImpl;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+
+import static xmlcompiler.config.Configuration.*;
 
 public class Main {
 
-    private static final String FILEPATH = "Result.java";
-
     public static void main(String[] args) {
         // get file to parse
-        String fileName = "";
-        if (args.length == 1){
-            fileName = args[0];
+        String inputFileName = "";
+        if (args.length == 1) {
+            inputFileName = args[0];
         } else {
             System.out.print("Not valid arg");
             System.exit(-1);
         }
         // parse file
-        ANTLRInputStream inputStream = new ANTLRInputStream(
-                "main{}");
-        XmlExprLexer lexer = new XmlExprLexer(inputStream);
+        CharStream charStream = null;
+        try {
+            charStream = CharStreams.fromFileName(inputFileName);
+        } catch (IOException e) {
+            System.err.println("Error while reading in " + inputFileName);
+            e.printStackTrace();
+        }
+        if (charStream == null)
+            System.err.println("File is not found");
+
+        XmlExprLexer lexer = new XmlExprLexer(charStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
         XmlExprParser parser = new XmlExprParser(commonTokenStream);
 
         ParseTree tree = parser.parse();
-        XmlExprVisitor visitor = new XmlExprVisitorImpl(fileName);
+        XmlExprVisitor visitor = new XmlExprVisitorImpl();
         String output = (String) visitor.visit(tree);
-        System.out.println(output);
 
-        try (PrintWriter printer = new PrintWriter(FILEPATH)) {
+        try (PrintWriter printer = new PrintWriter(FILENAME)) {
             printer.print(output);
         } catch (FileNotFoundException e) {
+            System.err.println("Error while writing in " + FILENAME);
             e.printStackTrace();
         }
     }
