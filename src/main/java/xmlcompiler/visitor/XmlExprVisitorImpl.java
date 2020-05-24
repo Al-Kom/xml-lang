@@ -121,27 +121,27 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
     // important code
     @Override
     public String visitParse(XmlExprParser.ParseContext ctx) {
-        String buffer = "// program " + className + ". Compiled at " + new Date().toString() + "\n";
-        buffer += "package " + COMPILED_PACKAGE_NAME + ";\n";
-        buffer += "public class " + className + " {\n";
+        StringBuilder buffer = new StringBuilder("// program " + className + ". Compiled at " + new Date().toString() + "\n");
+        buffer.append("package " + COMPILED_PACKAGE_NAME + ";\n");
+        buffer.append("public class ").append(className).append(" {\n");
 
         // write parsed global variables
         List<XmlExprParser.CreateContext> createContextList = ctx.create();
         for (XmlExprParser.CreateContext createContext : createContextList) {
-            buffer += "static " + this.visit(createContext);
-            buffer += "\n";
+            buffer.append("static ").append(this.visit(createContext));
+            buffer.append("\n");
         }
         // write functions
         List<XmlExprParser.FunctionContext> functionContextList = ctx.function();
         for (XmlExprParser.FunctionContext functionContext : functionContextList) {
-            buffer += this.visit(functionContext);
-            buffer += "\n";
+            buffer.append(this.visit(functionContext));
+            buffer.append("\n");
         }
         // write main-function
-        buffer += this.visit(ctx.main());
+        buffer.append(this.visit(ctx.main()));
 
-        buffer += "}\n";
-        return buffer;
+        buffer.append("}\n");
+        return buffer.toString();
     }
 
     @Override
@@ -154,13 +154,12 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
 
     @Override
     public String visitStart(XmlExprParser.StartContext ctx) {
-        String buffer = "";
+        StringBuilder buffer = new StringBuilder();
         for (int children = 0; children < ctx.getChildCount(); children++) {
-            buffer += "";
-            buffer += this.visit(ctx.getChild(children));
-            buffer += "\n";
+            buffer.append(this.visit(ctx.getChild(children)));
+            buffer.append("\n");
         }
-        return buffer;
+        return buffer.toString();
     }
 
     @Override
@@ -317,7 +316,7 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
     }
 
     @Override public String visitStat_block(XmlExprParser.Stat_blockContext ctx) {
-        Map<String, Type> beforeStatBlock = new HashMap(localVariable);
+        Map<String, Type> beforeStatBlock = new HashMap<>(localVariable);
         String block = "{\n" + this.visit(ctx.start()) +"}";
         localVariable = beforeStatBlock;
         return block;
@@ -325,7 +324,7 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
 
     @Override
     public String visitIf_stat(XmlExprParser.If_statContext ctx) {
-        String buffer = "";
+        StringBuilder buffer = new StringBuilder();
         List<XmlExprParser.Condition_blockContext> conditions =  ctx.condition_block();
         for(int index = 0; index < conditions.size(); index++) {
             String conditionString = this.visit(conditions.get(index).condition());
@@ -333,16 +332,16 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
             if (conditions.get(index).NEGATION() != null){
                 negation = "!";
             }
-            buffer += "if (" + negation + conditionString + ")";
-            buffer += this.visit(conditions.get(index).stat_block());
+            buffer.append("if (").append(negation).append(conditionString).append(")");
+            buffer.append(this.visit(conditions.get(index).stat_block()));
             if ((index + 1) < conditions.size()){
-                buffer += "else ";
+                buffer.append("else ");
             }
         }
         if(ctx.stat_block() != null) {
-            buffer += "else" + this.visit(ctx.stat_block());
+            buffer.append("else").append(this.visit(ctx.stat_block()));
         }
-        return buffer;
+        return buffer.toString();
     }
 
     @Override public String visitCondition_block(XmlExprParser.Condition_blockContext ctx) {
@@ -390,10 +389,10 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
 
     @Override
     public String visitForeach_stat(XmlExprParser.Foreach_statContext ctx) {
-//        Map<String, Type> beforeStatBlock = new HashMap(localVariable);
+        Map<String, Type> beforeStatBlock = new HashMap<>(localVariable);
         String forBlock = "for (" + this.visit(ctx.condition_for_each()) + ")" +
                 this.visit(ctx.stat_block());
-//        localVariable = beforeStatBlock;
+        localVariable = beforeStatBlock;
         return forBlock;
     }
 
