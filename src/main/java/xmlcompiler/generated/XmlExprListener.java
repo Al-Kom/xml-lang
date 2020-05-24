@@ -314,29 +314,29 @@ public interface XmlExprListener extends ParseTreeListener {
 	 */
 	void exitForeach_stat(XmlExprParser.Foreach_statContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code forEachVertex}
+	 * Enter a parse tree produced by the {@code forEachAttribute}
 	 * labeled alternative in {@link XmlExprParser#condition_for_each}.
 	 * @param ctx the parse tree
 	 */
-	void enterForEachVertex(XmlExprParser.ForEachVertexContext ctx);
+	void enterForEachAttribute(XmlExprParser.ForEachAttributeContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code forEachVertex}
+	 * Exit a parse tree produced by the {@code forEachAttribute}
 	 * labeled alternative in {@link XmlExprParser#condition_for_each}.
 	 * @param ctx the parse tree
 	 */
-	void exitForEachVertex(XmlExprParser.ForEachVertexContext ctx);
+	void exitForEachAttribute(XmlExprParser.ForEachAttributeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code forEachEdge}
+	 * Enter a parse tree produced by the {@code forEachNode}
 	 * labeled alternative in {@link XmlExprParser#condition_for_each}.
 	 * @param ctx the parse tree
 	 */
-	void enterForEachEdge(XmlExprParser.ForEachEdgeContext ctx);
+	void enterForEachNode(XmlExprParser.ForEachNodeContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code forEachEdge}
+	 * Exit a parse tree produced by the {@code forEachNode}
 	 * labeled alternative in {@link XmlExprParser#condition_for_each}.
 	 * @param ctx the parse tree
 	 */
-	void exitForEachEdge(XmlExprParser.ForEachEdgeContext ctx);
+	void exitForEachNode(XmlExprParser.ForEachNodeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link XmlExprParser#print}.
 	 * @param ctx the parse tree

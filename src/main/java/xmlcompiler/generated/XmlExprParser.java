@@ -1643,47 +1643,47 @@ public class XmlExprParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class ForEachVertexContext extends Condition_for_eachContext {
-		public TerminalNode ATTRIBUTE() { return getToken(XmlExprParser.ATTRIBUTE, 0); }
-		public List<TerminalNode> ID() { return getTokens(XmlExprParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(XmlExprParser.ID, i);
-		}
-		public TerminalNode IN() { return getToken(XmlExprParser.IN, 0); }
-		public ForEachVertexContext(Condition_for_eachContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).enterForEachVertex(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).exitForEachVertex(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof XmlExprVisitor ) return ((XmlExprVisitor<? extends T>)visitor).visitForEachVertex(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ForEachEdgeContext extends Condition_for_eachContext {
+	public static class ForEachNodeContext extends Condition_for_eachContext {
 		public TerminalNode NODE() { return getToken(XmlExprParser.NODE, 0); }
 		public List<TerminalNode> ID() { return getTokens(XmlExprParser.ID); }
 		public TerminalNode ID(int i) {
 			return getToken(XmlExprParser.ID, i);
 		}
 		public TerminalNode IN() { return getToken(XmlExprParser.IN, 0); }
-		public ForEachEdgeContext(Condition_for_eachContext ctx) { copyFrom(ctx); }
+		public ForEachNodeContext(Condition_for_eachContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).enterForEachEdge(this);
+			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).enterForEachNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).exitForEachEdge(this);
+			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).exitForEachNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof XmlExprVisitor ) return ((XmlExprVisitor<? extends T>)visitor).visitForEachEdge(this);
+			if ( visitor instanceof XmlExprVisitor ) return ((XmlExprVisitor<? extends T>)visitor).visitForEachNode(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ForEachAttributeContext extends Condition_for_eachContext {
+		public TerminalNode ATTRIBUTE() { return getToken(XmlExprParser.ATTRIBUTE, 0); }
+		public List<TerminalNode> ID() { return getTokens(XmlExprParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(XmlExprParser.ID, i);
+		}
+		public TerminalNode IN() { return getToken(XmlExprParser.IN, 0); }
+		public ForEachAttributeContext(Condition_for_eachContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).enterForEachAttribute(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof XmlExprListener ) ((XmlExprListener)listener).exitForEachAttribute(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof XmlExprVisitor ) return ((XmlExprVisitor<? extends T>)visitor).visitForEachAttribute(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1696,7 +1696,7 @@ public class XmlExprParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ATTRIBUTE:
-				_localctx = new ForEachVertexContext(_localctx);
+				_localctx = new ForEachAttributeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(200);
@@ -1710,7 +1710,7 @@ public class XmlExprParser extends Parser {
 				}
 				break;
 			case NODE:
-				_localctx = new ForEachEdgeContext(_localctx);
+				_localctx = new ForEachNodeContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(204);

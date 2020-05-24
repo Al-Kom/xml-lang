@@ -1,6 +1,5 @@
 // Generated from /home/ksan/IdeaProjects/xml-lang/src/main/antlr4/XmlExpr.g4 by ANTLR 4.8
 package xmlcompiler.generated;
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -352,25 +351,25 @@ public class XmlExprBaseListener implements XmlExprListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterForEachVertex(XmlExprParser.ForEachVertexContext ctx) { }
+	@Override public void enterForEachAttribute(XmlExprParser.ForEachAttributeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitForEachVertex(XmlExprParser.ForEachVertexContext ctx) { }
+	@Override public void exitForEachAttribute(XmlExprParser.ForEachAttributeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterForEachEdge(XmlExprParser.ForEachEdgeContext ctx) { }
+	@Override public void enterForEachNode(XmlExprParser.ForEachNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitForEachEdge(XmlExprParser.ForEachEdgeContext ctx) { }
+	@Override public void exitForEachNode(XmlExprParser.ForEachNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

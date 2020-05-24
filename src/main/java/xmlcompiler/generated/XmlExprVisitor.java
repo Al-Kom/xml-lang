@@ -192,19 +192,19 @@ public interface XmlExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForeach_stat(XmlExprParser.Foreach_statContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code forEachVertex}
+	 * Visit a parse tree produced by the {@code forEachAttribute}
 	 * labeled alternative in {@link XmlExprParser#condition_for_each}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForEachVertex(XmlExprParser.ForEachVertexContext ctx);
+	T visitForEachAttribute(XmlExprParser.ForEachAttributeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code forEachEdge}
+	 * Visit a parse tree produced by the {@code forEachNode}
 	 * labeled alternative in {@link XmlExprParser#condition_for_each}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForEachEdge(XmlExprParser.ForEachEdgeContext ctx);
+	T visitForEachNode(XmlExprParser.ForEachNodeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link XmlExprParser#print}.
 	 * @param ctx the parse tree

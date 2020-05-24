@@ -132,8 +132,8 @@ foreach_stat
  ;
 
 condition_for_each
- : ATTRIBUTE ID IN ID                   #forEachVertex
- | NODE ID IN ID                        #forEachEdge
+ : ATTRIBUTE ID IN ID                   #forEachAttribute
+ | NODE ID IN ID                        #forEachNode
  ;
 
 print

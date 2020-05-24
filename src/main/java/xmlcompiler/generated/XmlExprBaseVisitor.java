@@ -213,14 +213,14 @@ public class XmlExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitForEachVertex(XmlExprParser.ForEachVertexContext ctx) { return visitChildren(ctx); }
+	@Override public T visitForEachAttribute(XmlExprParser.ForEachAttributeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitForEachEdge(XmlExprParser.ForEachEdgeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitForEachNode(XmlExprParser.ForEachNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
