@@ -1,9 +1,9 @@
 package xmlcompiler.visitor;
 
 public enum Type {
-    NODE("node"),
-    ATTRIBUTE ("attribute"),
-    VOID("void");
+    NODE("Node"),
+    ATTRIBUTE ("Attribute"),
+    VOID("Void");
 
     private String type;
 
