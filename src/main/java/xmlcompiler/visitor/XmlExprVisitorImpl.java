@@ -417,6 +417,95 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
         return "Attribute " + left + " : "+ right + ".getAttributes()";
     }
 
+    @Override
+    public String visitReturn_id(XmlExprParser.Return_idContext ctx) {
+        String id = ctx.ID().getText();
+        checkVariable(id);
+        XmlExprParser.ReturnFunctionContext context = (XmlExprParser.ReturnFunctionContext) ctx.getParent().getParent();
+        checkCast(id, Type.getTypeByString(getStringWithFirstCapital(context.type().getText())));
+        return "return " + id + ";\n";
+    }
+
+    @Override
+    public String visitFunction_call(XmlExprParser.Function_callContext ctx) {
+        String name = ctx.ID().getText();
+        checkFunction(name);
+        return name + this.visit(ctx.param_call());
+    }
 
 
+    @Override
+    public String visitParam_call(XmlExprParser.Param_callContext ctx) {
+        String args = "";
+        if (ctx.arg_call() != null){
+            args = this.visit(ctx.arg_call());
+        }
+        return "(" + args + ");";
+    }
+
+    @Override
+    public String visitVoidFunction(XmlExprParser.VoidFunctionContext ctx) {
+        clearLocalVariableList();
+        String funName = ctx.ID().getText();
+        addToFunctionList(funName, Type.VOID);
+        return "private static void " + funName + this.visit(ctx.param()) + this.visit(ctx.stat_block());
+    }
+
+    @Override
+    public String visitReturnFunction(XmlExprParser.ReturnFunctionContext ctx) {
+        clearLocalVariableList();
+        String funName = ctx.ID().getText();
+        String returnType = ctx.type().getText();
+        returnType = getStringWithFirstCapital(returnType);
+        addToFunctionList(funName, Type.getTypeByString(returnType));
+        return "private static " + returnType + " " + funName +
+                this.visit(ctx.param()) +
+                this.visit(ctx.stat_block_with_return());
+    }
+
+    @Override
+    public String visitStat_block_with_return(XmlExprParser.Stat_block_with_returnContext ctx) {
+        return "{\n" + this.visit(ctx.start()) + this.visit(ctx.return_id()) +"}";
+    }
+
+    @Override
+    public String visitParamCallArgs(XmlExprParser.ParamCallArgsContext ctx) {
+        String param = ctx.ID().getText();
+        checkVariable(param);
+        return param + ", " + this.visit(ctx.arg_call());
+    }
+
+    @Override
+    public String visitParamCallArg(XmlExprParser.ParamCallArgContext ctx) {
+        String param = ctx.ID().getText();
+        checkVariable(param);
+        return param;
+    }
+
+    @Override
+    public String visitParam(XmlExprParser.ParamContext ctx) {
+        String args = "";
+        if (ctx.arg() != null){
+            args = this.visit(ctx.arg());
+        }
+        return "(" + args + ")";
+    }
+
+    @Override
+    public String visitParamArgs(XmlExprParser.ParamArgsContext ctx) {
+        String type = ctx.type().getText();
+        type = getStringWithFirstCapital(type);
+        String name = ctx.ID().getText();
+        addToLocalVariableList(name, Type.getTypeByString(type));
+        return type + " " + name + ", " + this.visit(ctx.arg());
+    }
+
+    @Override
+    public String visitParamArg(XmlExprParser.ParamArgContext ctx) {
+        String type = ctx.type().getText();
+        type = getStringWithFirstCapital(type);
+        String name = ctx.ID().getText();
+        addToLocalVariableList(name, Type.getTypeByString(type));
+        return type + " " + name;
+    }
 }
