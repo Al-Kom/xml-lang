@@ -7,6 +7,8 @@ public class Configuration {
     public static final String PACKAGE_NAME = "compiled";
     public static final String CLASSNAME = genClassName();
     public static final String FILENAME = CLASSNAME + "." + FILE_EXT;
+    public static final String FILE_PATH = "result/src/" + PACKAGE_NAME + "/";
+    public static final String MODEL_LIB = "model";
 
     private static String genClassName() {
         String className = Configuration.RAW_CLASSNAME;

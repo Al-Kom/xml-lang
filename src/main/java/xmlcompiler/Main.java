@@ -45,10 +45,14 @@ public class Main {
         XmlExprVisitor visitor = new XmlExprVisitorImpl();
         String output = (String) visitor.visit(tree);
 
-        try (PrintWriter printer = new PrintWriter(FILENAME)) {
+        try (PrintWriter printer = new PrintWriter(FILE_PATH + FILENAME)) {
+            Runtime.getRuntime().exec("mkdir -p " + FILE_PATH);
             printer.print(output);
         } catch (FileNotFoundException e) {
-            System.err.println("Error while writing in " + FILENAME);
+            System.err.println("Error while writing in " + FILE_PATH + FILENAME);
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Can not create directories: " + FILE_PATH);
             e.printStackTrace();
         }
     }

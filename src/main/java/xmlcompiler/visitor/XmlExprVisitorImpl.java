@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static xmlcompiler.config.Configuration.CLASSNAME;
-import static xmlcompiler.config.Configuration.PACKAGE_NAME;
+import static xmlcompiler.config.Configuration.*;
 
 public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
     private Map<String, Type> globalVariable = new HashMap<>();
@@ -118,6 +117,7 @@ public class XmlExprVisitorImpl extends XmlExprBaseVisitor<String> {
         StringBuilder buffer = new StringBuilder("// program " + CLASSNAME
                 + ". Compiled at " + new Date().toString() + "\n");
         buffer.append("package " + PACKAGE_NAME + ";\n");
+        buffer.append("import " + MODEL_LIB + ".*;\n");
         buffer.append("public class ").append(CLASSNAME).append(" {\n");
 
         // write parsed global variables
